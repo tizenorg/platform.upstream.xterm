@@ -1,0 +1,11 @@
+Index: xterm.desktop
+===================================================================
+--- xterm.desktop.orig
++++ xterm.desktop
+@@ -37,5 +37,5 @@ Exec=xterm
+ Terminal=false
+ Type=Application
+ Encoding=UTF-8
+-Icon=xterm-color_48x48
++Icon=terminal
+ Categories=System;TerminalEmulator;
