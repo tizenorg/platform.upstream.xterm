@@ -1237,7 +1237,7 @@ Application specific resources (e.g., \*(``\fB__default_class__.\fP\fINAME\fP\*(
 Tie the VTxxx \fBbackarrowKey\fP and \fBptyInitialErase\fP resources
 together by setting the DECBKM state according to whether the initial value of
 \fIstty\fP erase is a backspace (8) or delete (127) character.
-The default is \*(``false\*('', which disables this feature.
+The default is \*(``true\*('', which disables this feature.
 .TP 8
 .B "fullscreen (\fPclass\fB Fullscreen)"
 Specifies whether or not \fIxterm\fP should ask the window manager to
@@ -3826,9 +3826,13 @@ It is the XIM server's responsibility to display the preedit string.
 The XIM client must inform the XIM server of the cursor position.
 For best results, the preedit string must be displayed with a proper font.
 Therefore, \fIxterm\fP informs the XIM server of the proper font.
-The font is be supplied by a "fontset", whose default value is \*(``*\*(''.
-This matches every font, the X library automatically chooses fonts with
-proper charsets.
+The font is to be supplied by a "fontset", whose default value is
+"fixed" on openSUSE. The upstream default value is \*(``*\*(''
+which matches every font, the X library automatically chooses fonts with
+proper charsets. But this can be extremely slow in some locales and
+at least for the XIM servers "scim" and "kinput2" it doesn't improve
+anything, it just slows down the startup time of xterm.
+
 The \fBximFont\fP resource is provided to override this default font setting.
 .\"
 .SS Tek4014 Widget Resources
