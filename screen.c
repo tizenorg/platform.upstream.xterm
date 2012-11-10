@@ -2167,7 +2167,7 @@ ScreenResize(XtermWidget xw,
     TRACE(("return %d from SET_TTYSIZE %dx%d\n", code, rows, cols));
     (void) code;
 
-#if defined(SIGWINCH) && defined(TIOCGPGRP)
+#if defined(SIGWINCH) && (defined(TIOCGPGRP) || defined(linux))
     if (screen->pid > 1) {
 	int pgrp;
 
