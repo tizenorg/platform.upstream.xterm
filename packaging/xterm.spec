@@ -1,51 +1,38 @@
 Name:           xterm
+BuildRequires:  freetype-devel
+BuildRequires:  ncurses-devel
+BuildRequires:  update-desktop-files
+BuildRequires:  utempter-devel
+BuildRequires:  libXaw-devel
+Url:            http://invisible-island.net/xterm/
+Provides:       XFree86:/usr/X11R6/bin/xterm
+Provides:       xorg-x11:/usr/X11R6/bin/xterm
 Version:        279
 Release:        0
-License:        MIT
 Summary:        The basic X terminal program
-Url:            http://invisible-island.net/xterm/
+License:        MIT
 Group:          System/X11/Utilities
-Source:         ftp://invisible-island.net/xterm/%{name}-%{version}.tgz
-Source2:        ftp://invisible-island.net/xterm/%{name}-%{version}.tgz.asc
+Source:         ftp://invisible-island.net/xterm/%name-%version.tgz
 Source1:        luitx
 Source3:        Backarrow2Delete
 Source4:        Backarrow2BackSpace
 Source6:        terminal.png
 %define vttest_version 20120506
 Source7:        ftp://invisible-island.net/vttest/vttest-%vttest_version.tgz
-Source10:       ftp://invisible-island.net/vttest/vttest-%vttest_version.tgz.asc
 Source8:        20x20ja.bdf.bz2
 Source9:        20x20ko.bdf.bz2
 # Snoop for the escape sequence assignment of the keypad
 Source20:       snooper.tar.bz2
-Patch1:         p_xterm-settings.diff
-Patch2:         p_xterm-sigwinch.diff
-Patch3:         bug-246573-tentative-patch.diff
-Patch4:         desktop.diff
-Patch5:         xterm-disallow-window-and-fonts-ops.patch
-Patch6:         libtinfo.diff
-Patch293793:    bugzilla-293793-do-not-insist-on-iso8859-fonts-for-the-menu.patch
-BuildRequires:  freetype-devel
-BuildRequires:  libXaw-devel
-BuildRequires:  ncurses-devel
-BuildRequires:  update-desktop-files
-BuildRequires:  utempter-devel
-Provides:       XFree86:/usr/X11R6/bin/xterm
-Provides:       xorg-x11:/usr/X11R6/bin/xterm
-BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 
 %description
 This package contains the basic X.Org terminal program.
 
 %prep
 %setup -q -b7
-%patch1 -p1 -b .xterm-settings
-%patch2 -p0 -b .xterm-sigwinch
-%patch3 -p1
-%patch4 -p0
-%patch5 -p0
-%patch6 -p0
-%patch293793 -p1
+
+
+
+
 cp $RPM_SOURCE_DIR/*bdf.bz2 .
 bunzip2 *.bdf.bz2
 
@@ -79,32 +66,32 @@ do
 done
 
 %install
-%make_install
+make install DESTDIR=$RPM_BUILD_ROOT
 
-mkdir -p %{buildroot}%{xterminfo}
-install -m 644 terminfo %{buildroot}%{xterminfo}/xterm.terminfo
-install -m 644 termcap  %{buildroot}%{xterminfo}/xterm.termcap
+mkdir -p $RPM_BUILD_ROOT%{xterminfo}
+install -m 644 terminfo $RPM_BUILD_ROOT%{xterminfo}/xterm.terminfo
+install -m 644 termcap  $RPM_BUILD_ROOT%{xterminfo}/xterm.termcap
 
 pushd "../vttest-%vttest_version"
-%make_install
+    make install DESTDIR=$RPM_BUILD_ROOT
 popd
-install -m 755 $RPM_SOURCE_DIR/luitx %{buildroot}/usr/bin
-install -m 755 $RPM_SOURCE_DIR/Backarrow2Delete %{buildroot}/usr/bin
-install -m 755 $RPM_SOURCE_DIR/Backarrow2BackSpace %{buildroot}/usr/bin
+install -m 755 $RPM_SOURCE_DIR/luitx $RPM_BUILD_ROOT/usr/bin
+install -m 755 $RPM_SOURCE_DIR/Backarrow2Delete $RPM_BUILD_ROOT/usr/bin
+install -m 755 $RPM_SOURCE_DIR/Backarrow2BackSpace $RPM_BUILD_ROOT/usr/bin
 install -m 644 $RPM_SOURCE_DIR/README.SuSE .
 
-mkdir -p %{buildroot}/usr/share/pixmaps
+mkdir -p $RPM_BUILD_ROOT/usr/share/pixmaps
 install -m 644 $RPM_SOURCE_DIR/terminal.png \
-    %{buildroot}/usr/share/pixmaps
+    $RPM_BUILD_ROOT/usr/share/pixmaps
 
-mkdir -p %{buildroot}%{xfontsd}/misc/
-install -m 644 *.pcf.gz %{buildroot}%{xfontsd}/misc/
+mkdir -p $RPM_BUILD_ROOT%{xfontsd}/misc/
+install -m 644 *.pcf.gz $RPM_BUILD_ROOT%{xfontsd}/misc/
 %tizen_update_desktop_file -i xterm TerminalEmulator
 
 
 %files
 %defattr(-,root,root)
-%doc README README.i18n
+%doc README README.i18n 
 /usr/bin/vttest
 /usr/bin/luitx
 %attr(755,root,root) /usr/bin/xterm
