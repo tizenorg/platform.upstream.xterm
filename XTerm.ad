@@ -263,6 +263,11 @@
 ! Alternatively,
 !*on2Clicks: regex [[:alpha:]]+://([[:alnum:]!#+,./=?@_~-]|(%[[:xdigit:]][[:xdigit:]]))+
 
+! Security: Disallow operations that might allow raw text being pasted to xterm to
+! execute code.
+*allowWindowOps:	false
+*allowFontOps:		false
+
 !! We want a 8bit clean xterm
 *eightBitInput:        true
 *eightBitOutput:       true
