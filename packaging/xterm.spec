@@ -78,7 +78,6 @@ popd
 install -m 755 $RPM_SOURCE_DIR/luitx $RPM_BUILD_ROOT/usr/bin
 install -m 755 $RPM_SOURCE_DIR/Backarrow2Delete $RPM_BUILD_ROOT/usr/bin
 install -m 755 $RPM_SOURCE_DIR/Backarrow2BackSpace $RPM_BUILD_ROOT/usr/bin
-install -m 644 $RPM_SOURCE_DIR/README.SuSE .
 
 mkdir -p $RPM_BUILD_ROOT/usr/share/pixmaps
 install -m 644 $RPM_SOURCE_DIR/terminal.png \
