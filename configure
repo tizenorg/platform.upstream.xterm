@@ -6176,10 +6176,10 @@ else
 cf_save_LIBS="$LIBS"
 cf_cv_lib_tgetent=no
 if test "$cf_full_tgetent" = yes ; then
-	cf_TERMLIB="otermcap termcap termlib ncurses curses"
+	cf_TERMLIB="otermcap termcap termlib tinfo ncurses curses"
 	cf_TERMTST="buffer[0] == 0"
 else
-	cf_TERMLIB="termlib ncurses curses"
+	cf_TERMLIB="termlib tinfo ncurses curses"
 	cf_TERMTST="0"
 fi
 for cf_termlib in '' $cf_TERMLIB ; do
