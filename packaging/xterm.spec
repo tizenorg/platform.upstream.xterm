@@ -23,12 +23,14 @@ Source8:        20x20ja.bdf.bz2
 Source9:        20x20ko.bdf.bz2
 # Snoop for the escape sequence assignment of the keypad
 Source20:       snooper.tar.bz2
+Source1001: 	xterm.manifest
 
 %description
 This package contains the basic X.Org terminal program.
 
 %prep
 %setup -q -b7
+cp %{SOURCE1001} .
 
 
 
@@ -89,6 +91,7 @@ install -m 644 *.pcf.gz $RPM_BUILD_ROOT%{xfontsd}/misc/
 
 
 %files
+%manifest %{name}.manifest
 %defattr(-,root,root)
 %doc README README.i18n 
 /usr/bin/vttest
