@@ -1,3 +1,5 @@
+%bcond_with x
+
 Name:           xterm
 BuildRequires:  freetype-devel
 BuildRequires:  ncurses-devel
@@ -24,6 +26,10 @@ Source9:        20x20ko.bdf.bz2
 # Snoop for the escape sequence assignment of the keypad
 Source20:       snooper.tar.bz2
 Source1001: 	xterm.manifest
+
+%if !%{with x}
+ExclusiveArch:
+%endif
 
 %description
 This package contains the basic X.Org terminal program.
@@ -93,7 +99,7 @@ install -m 644 *.pcf.gz $RPM_BUILD_ROOT%{xfontsd}/misc/
 %files
 %manifest %{name}.manifest
 %defattr(-,root,root)
-%doc README README.i18n 
+%doc README README.i18n
 /usr/bin/vttest
 /usr/bin/luitx
 %attr(755,root,root) /usr/bin/xterm
